@@ -8,7 +8,7 @@
     Input File:
     <p>
       <input type="radio" name="mdType" value="md"> Markdown
-      <input type="radio" name="mdType" value="Mediawiki"> Mediawiki
+      <input type="radio" name="mdType" value="mediawiki"> Mediawiki
       <input type="radio" name="mdType" value="html"> HTML
     </p>
     Output File:
