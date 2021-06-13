@@ -9,29 +9,21 @@
   </form>
 
   <?php 
+    # class "FileStream"
+    ## stores file metadata needed
     class FileStream {
-      protected $fileName;
-      protected $fileType;
+      public $fileName;
+      public $fileType;
 
       function __construct(String $name, String $type) {
-        $this->setName($name);
-        $this->setType($type);
+        $this->fileName = $name;
+        $this->fileName = $type;
       }
+    }
 
-      public function setName(String $file){
-        $this->fileName = $file;
-      }
-
-      public function setType(String $type){
-        $this->fileType = $type;
-      }
-
-      public function getName(){
-        return $this->fileName;
-      }
-
-      public function getType(){
-        return $this->fileType;
+    class Conversion {
+      function __construct() {
+        
       }
     }
 
