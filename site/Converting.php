@@ -2,7 +2,6 @@
   # class "FileStream"
   ## stores file metadata needed
   class FileStream {
-    protected $DEFAULT_FILE_PATH = "/tmp/";
     public $fileName;
     public $fileType;
   
@@ -12,32 +11,10 @@
     }
 
     public function writeFile(String $content) {
-      $file = fopen($this->DEFAULT_FILE_PATH . $this->fileName . $this->fileType, "w") or die("Can't create file");
-      fwrite($file, $content);
-      fclose($file);
+      file_put_contents("./tmp/" . $this->fileName . "." . $this->fileType, $content);
     }
   }
   
-  class Converter {
-    protected $DEFAULT_FILE_PATH = "/tmp/";
-    protected $inputFile = null;
-    protected $outputFile = null;
-    public function __construct(FileStream $inputFile, FileStream $outputFile) {
-      $this->inputFile   = $inputFile;
-      $this->outputFile  = $outputFile; 
-    }
-  
-    # function convert
-    ## Pandoc convert it to ./tmp/ID.pdf
-    public function convert() {
-      $inputFileType = $this->inputFile->fileType;
-      $inputFileName = $this->DEFAULT_FILE_PATH . $this->inputFile->fileName . "." . $this->inputFile->fileType;
-      $outputFileType = $this->outputFile->fileType;
-      $outputFileName = $this->DEFAULT_FILE_PATH . $this->outputFile->fileName . ".pdf";
-      shell_exec("pandoc $inputFileName --from $inputFileType --to $outputFileType -o $outputFileName.pdf");
-    }
-  }
-
   # generating unique id for user output file
   $uniqueID = uniqid("user-", false);
   ## Generating input file
@@ -53,9 +30,17 @@
     $_POST["outType"]
   );
 
-  $converterHandler = new Converter($inputFile, $outputFile);
-  $converterHandler->convert();
+  # function convert
+  function convert(FileStream $in, FileStream $out) {
+    $TMPDIR  = "./tmp/";
+    $command = "pandoc " . $TMPDIR . $in->fileName . '.' . $in->fileType . 
+      " -f " . $in->fileType . " -t " . $out->fileType . 
+      " -o " . $TMPDIR . $out->fileName . ".pdf";
+    shell_exec("$command 2>&1 > ./tmp/log");
+  }
 
-#  header("Location: ./tmp/" . $outputFile->fileName . ".pdf");
-#  die();
+  convert($inputFile, $outputFile);
+
+  header("Location: ./tmp/" . $outputFile->fileName . ".pdf");
+  die();
 ?>

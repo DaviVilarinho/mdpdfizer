@@ -7,13 +7,13 @@
     <br>
     Input File:
     <p>
-      <input type="radio" name="mdType" value="md"> Markdown
+      <input type="radio" name="mdType" value="markdown"> Markdown
       <input type="radio" name="mdType" value="mediawiki"> Mediawiki
       <input type="radio" name="mdType" value="html"> HTML
     </p>
     Output File:
     <p>
-      <input type="radio" name="outType" value="gfm"> Git Flavoured Markdown PDF
+      <input type="radio" name="outType" value="pdf"> Latex PDF
       <input type="radio" name="outType" value="beamer"> Presentation PDF
     </p>
     
