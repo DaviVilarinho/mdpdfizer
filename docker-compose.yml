@@ -5,14 +5,15 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./site:/var/www/html:rz
-      - ./api/in:/var/www/html/in:w
-      - ./api/out:/var/www/html/out:r
+      - ./site:/var/www/html
+      - ./api/out:/var/www/html/out
+    links:
+      - api
   api:
-    image: python:latest
+    image: converter-api:latest
     ports:
       - "5000:5000"
     volumes:
-      - ./api:/:r
-      - ./api/in:/in:w
-      - ./api/out:/out:r
+      - ./api:/api
+      - ./api/out:/api/out
+    command: "python3 /api/converter-api.py"
