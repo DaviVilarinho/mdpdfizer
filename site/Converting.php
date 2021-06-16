@@ -14,19 +14,25 @@
     curl_close($curl);
     return $response;
   }
-  $mdSource= $_POST['mdSource'];
-  $mdType= $_POST['mdType'];
-  $outType= $_POST['outType'];
 
-  $API_URL    = "http://192.168.15.114";
-  $response   = convertDoc($API_URL,
-    array(
-      "mdSource"=>$mdSource,
-      "mdType"=>$mdType,
-      "outType"=>$outType
-    ));
+  function mkCall(){
+    $mdSource= $_POST['mdSource'];
+    $mdType= $_POST['mdType'];
+    $outType= $_POST['outType'];
+  
+    $API_URL    = "http://192.168.15.114";
+    $response   = convertDoc($API_URL,
+      array(
+        "mdSource"=>$mdSource,
+        "mdType"=>$mdType,
+        "outType"=>$outType
+      ));
+    return $response;
+  }
 
-  $response = json_decode($response);
-  header("Location: " . $response->outputPath);
-  die();
+  function mkRedirect($response) {
+    $response = json_decode($response);
+    header("Location: " . $response->outputPath);
+    die();
+  }
 ?>

@@ -8,15 +8,14 @@
   </head>
   <body>
     <div class="jumbotron text-center">
-      <h1>PDFizer</h1>
+      <h1 class="display-4">PDFizer</h1>
       <p>Conversor para Slides ou PDF</p>
     </div>
     <div style="display: block; text-align: center;">
-      <form style="display: inline-block; margin-left: auto; margin-right: auto; text-align: left;"
-action="Converting.php" method="post">
+      <form style="display: inline-block; margin-left: auto; margin-right: auto; text-align: left;" action="index.php" method="post">
         <div class="form-group">
           <label>Código Fonte</label>
-          <textarea class="form-control" type="text" name="mdSource" cols="70" rows="30"></textarea>
+          <textarea class="form-control" type="text" name="mdSource" cols="70" rows="10"></textarea>
         </div>
         <div class="form-group">
         <label>Formato de Entrada</label>
@@ -47,12 +46,20 @@ action="Converting.php" method="post">
             <input type="radio" name="outType" value="beamer"> Slides PDF
           </div>
         </div>
-
-        
         <div class="text-center">
           <input class="center btn btn-primary" type="submit">
         </div>
       </form>
+    </div>
+    <br>
+    <div class="text-center">
+      <?php include 'Converting.php';
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+          $response = mkCall();
+          $json     = json_decode($response);
+          echo "<a target=\"_blank\" href=\"" . $json->outputPath . "\">LINK DO SEU ARQUIVO</link>";
+        }
+      ?>
     </div>
   </body>
 </html>
