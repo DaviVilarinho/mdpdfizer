@@ -20,7 +20,7 @@
     $mdType= $_POST['mdType'];
     $outType= $_POST['outType'];
   
-    $API_URL    = "http://192.168.15.114";
+    $API_URL    = "http://mdpdfizer_api_1/";
     $response   = convertDoc($API_URL,
       array(
         "mdSource"=>$mdSource,
