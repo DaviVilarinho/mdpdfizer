@@ -8,7 +8,7 @@
     curl_setopt($curl, CURLOPT_POST, true);
     curl_setopt($curl, CURLOPT_POSTFIELDS, $query);
     curl_setopt($curl, CURLOPT_HEADER, false);
-
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
  
     $response = curl_exec($curl);
     curl_close($curl);
@@ -26,8 +26,7 @@
       "outType"=>$outType
     ));
 
-  $json = json_decode($response);
-  echo $json[0];
-#  header("Location: " . $response->);
-#  die();
+  $response = json_decode($response);
+  header("Location: " . $response->outputPath);
+  die();
 ?>
