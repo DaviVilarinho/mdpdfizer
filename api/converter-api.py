@@ -13,6 +13,8 @@ converter = Flask(__name__)
 
 @converter.route("/", methods=DEFAULT_METHODS)
 def convertDoc():
+    # TODO async tasks
+    # TODO comment
     mdSource    = request.form.get('mdSource')
     mdType      = request.form.get('mdType')
     outType     = request.form.get('outType')
@@ -26,12 +28,15 @@ def convertDoc():
     outFilepath = WORKDIR + OUTPUT_DIR + filename
     pypandoc.convert_text(source=mdSource, format=mdType, to=outType, encoding='unicode', outputfile=outFilepath)
 
+    # TODO error management
+    # TODO removing temporary files
     return jsonify(
         uuid=UUID,
         mdType=mdType,
         outType=outType,
         outputPath=OUTPUT_DIR+filename
     )
+
 
 if __name__ == "__main__":
     converter.run(host="0.0.0.0")

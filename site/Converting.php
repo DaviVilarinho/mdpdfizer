@@ -30,6 +30,7 @@
     return $response;
   }
 
+  // TODO reimplement mkredirect
   function mkRedirect($response) {
     $response = json_decode($response);
     header("Location: " . $response->outputPath);
