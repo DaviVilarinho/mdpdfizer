@@ -1,8 +1,11 @@
 version: '3'
 services:
-  php:
-    image: mdpdfizer:latest
+  main:
+    image: php:apache-buster
     ports:
       - "8080:80"
     volumes:
-      - ./site:/var/www/html
+      - ./site:/var/www/html:rz
+      - ./in:/var/www/html/in:w
+      - ./out:/var/www/html/out:r
+  
