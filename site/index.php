@@ -1,22 +1,58 @@
+<!DOCTYPE html>
 <html>
   <head>
     <title>mdpdfizer</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   </head>
-  <form action="Converting.php" method="post">
-    Source: <br> <textarea type="text" name="mdSource" cols="80" rows="30"></textarea>
-    <br>
-    Input:
-    <p>
-      <input type="radio" name="mdType" value="markdown"> Markdown
-      <input type="radio" name="mdType" value="mediawiki"> Mediawiki
-      <input type="radio" name="mdType" value="html"> HTML
-    </p>
-    Output:
-    <p>
-      <input type="radio" name="outType" value="pdf"> Latex PDF
-      <input type="radio" name="outType" value="beamer"> Presentation PDF
-    </p>
-    
-    <input type="submit">
-  </form>
+  <body>
+    <div class="jumbotron text-center">
+      <h1>PDFizer</h1>
+      <p>Conversor para Slides ou PDF</p>
+    </div>
+    <div style="display: block; text-align: center;">
+      <form style="display: inline-block; margin-left: auto; margin-right: auto; text-align: left;"
+action="Converting.php" method="post">
+        <div class="form-group">
+          <label>Código Fonte</label>
+          <textarea class="form-control" type="text" name="mdSource" cols="70" rows="30"></textarea>
+        </div>
+        <div class="form-group">
+        <label>Formato de Entrada</label>
+        <div class="form">
+          <div>
+            <input type="radio" name="mdType" value="markdown"> Markdown
+          </div>
+          <div>
+            <input type="radio" name="mdType" value="html"> HTML
+          </div>
+          <div>
+            <input type="radio" name="mdType" value="mediawiki"> Mediawiki
+          </div>
+        </div>
+        </div>
+        <div class="form">
+          <label>Formato de Saída</label>
+          <div>
+            <input type="radio" name="outType" value="docx"> Documento Docx
+          </div>
+          <div> 
+            <input type="radio" name="outType" value="pptx"> Slides PPTX
+          </div> 
+          <div> 
+            <input type="radio" name="outType" value="pdf"> Documento PDF
+          </div>
+          <div>
+            <input type="radio" name="outType" value="beamer"> Slides PDF
+          </div>
+        </div>
+
+        
+        <div class="text-center">
+          <input class="center btn btn-primary" type="submit">
+        </div>
+      </form>
+    </div>
+  </body>
 </html>
