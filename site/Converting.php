@@ -1,46 +1,33 @@
 <?php
-  # class "FileStream"
-  ## stores file metadata needed
-  class FileStream {
-    public $fileName;
-    public $fileType;
-  
-    public function __construct(String $name, String $type) {
-      $this->fileName = $name;
-      $this->fileType = $type;
-    }
+  function convertDoc($url, $data = false)
+  {
+    $curl = curl_init();
 
-    public function writeFile(String $content) {
-      file_put_contents("./tmp/" . $this->fileName . "." . $this->fileType, $content);
-    }
-  }
-  
-  # generating unique id for user output file
-  $uniqueID = uniqid("user-", false);
-  ## Generating input file
-  $inputFile = new FileStream(
-    $uniqueID,
-    $_POST["mdType"]
-  );
-  $inputFile->writeFile($_POST["mdSource"]);
+    curl_setopt($curl, CURLOPT_POST, 1);
+    if ($data)
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
 
-  ## output file creation
-  $outputFile = new FileStream(
-    $uniqueID,
-    $_POST["outType"]
-  );
+    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 
-  # function convert
-  function convert(FileStream $in, FileStream $out) {
-    $TMPDIR  = "./tmp/";
-    $command = "pandoc " . $TMPDIR . $in->fileName . '.' . $in->fileType . 
-      " -f " . $in->fileType . " -t " . $out->fileType . 
-      " -o " . $TMPDIR . $out->fileName . ".pdf";
-    shell_exec("$command 2>&1 > ./tmp/log");
+
+    $response = curl_exec($curl);
+
+    curl_close($curl);
+
+    return $response;
   }
 
-  convert($inputFile, $outputFile);
-
-  header("Location: ./tmp/" . $outputFile->fileName . ".pdf");
-  die();
+  $API_URL    = "http://mdpdfizer_api_1";
+  $jsonResult = json_decode(
+    convertDoc($API_URL,
+      array(
+        "mdSource"=>$_POST['mdSource'],
+        "mdType"=>$_POST['mdType'],
+        "outType"=>$_POST['outType']
+    ))
+  );
+  echo $jsonResult;
+#  header("Location: " . $response->);
+#  die();
 ?>
