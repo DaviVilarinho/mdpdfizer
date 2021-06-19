@@ -17,3 +17,4 @@ services:
       - ./api:/api
       - ./api/out:/api/out
     command: "python3 /api/converter-api.py"
+

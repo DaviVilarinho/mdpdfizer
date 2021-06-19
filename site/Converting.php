@@ -16,9 +16,17 @@
   }
 
   function mkCall(){
-    $mdSource= $_POST['mdSource'];
-    $mdType= $_POST['mdType'];
-    $outType= $_POST['outType'];
+    # avoid undefined variable
+    if (!(isset($_POST['mdSource']) &&
+          isset($_POST['mdType']  ) &&
+          isset($_POST['outType'] )
+    )) {
+      return -1; 
+    } else {
+      $mdSource=  $_POST['mdSource'];
+      $mdType  =  $_POST['mdType'];
+      $outType =  $_POST['outType'];
+    }
   
     $API_URL    = "http://mdpdfizer_api_1/";
     $response   = convertDoc($API_URL,

@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<?php
+if($_POST){ // if we have any POSTed variables...
+    $_SESSION['postdata'] = $_POST; // set a browser session with all of the values
+}?>
 <html>
   <head>
     <title>mdpdfizer</title>
@@ -15,7 +19,12 @@
       <form style="display: inline-block; margin-left: auto; margin-right: auto; text-align: left;" action="index.php" method="post">
         <div class="form-group">
           <label>Código Fonte</label>
-          <textarea class="form-control" type="text" name="mdSource" cols="70" rows="10"></textarea>
+          <?php if (!isset($_SESSION['postdata']['mdSource'])) {
+            echo "<textarea class=\"form-control\" type=\"text\" name=\"mdSource\"  cols=\"70\" rows=\"10\"></textarea>";
+          } else {
+            echo "<textarea class=\"form-control\" type=\"text\" name=\"mdSource\" cols=\"70\" rows=\"10\">" . $_SESSION['postdata']['mdSource'] . " </textarea>";
+          }
+          ?>
         </div>
         <div class="form-group">
         <label>Formato de Entrada</label>
@@ -56,8 +65,12 @@
       <?php include 'Converting.php';
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           $response = mkCall();
-          $json     = json_decode($response);
-          echo "<a target=\"_blank\" href=\"" . $json->outputPath . "\">LINK DO SEU ARQUIVO</link>";
+          if ($response != -1) {
+            $json     = json_decode($response);
+            echo "<a target=\"_blank\" href=\"" . $json->outputPath . "\">LINK DO SEU ARQUIVO</link>";
+          } else {
+            echo "<p>Preencha os campos para ter o seu arquivo</p>";
+          }
         }
       ?>
     </div>
