@@ -6,7 +6,7 @@ services:
       - "8080:80"
     volumes:
       - ./site:/var/www/html
-      - ./api/out:/var/www/html/out
+      - ./api/converter-api/out:/var/www/html/out
     links:
       - api
   api:
@@ -14,7 +14,7 @@ services:
     ports:
       - "5000:5000"
     volumes:
-      - ./api:/api
-      - ./api/out:/api/out
+      - ./api/converter-api/:/api
+      - ./api/converter-api/out:/api/out
     command: "python3 /api/converter-api.py"
 
