@@ -6,15 +6,15 @@ services:
       - "8080:80"
     volumes:
       - ./site:/var/www/html
-      - ./api/converter-api/out:/var/www/html/out
+      - ./api/out:/var/www/html/out
     links:
       - api
   api:
-    image: converter-api:latest
+    image: mdpdfizer:latest
     ports:
       - "5000:5000"
     volumes:
-      - ./api/converter-api/:/api
-      - ./api/converter-api/out:/api/out
-    command: "python3 /api/converter-api.py"
-
+      - ./api/:/api
+      - ./api/out:/api/out
+    working_dir: /api
+    command: "gunicorn --bind 0.0.0.0:5000 'main:api'"
