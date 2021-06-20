@@ -1,5 +1,5 @@
 ./api/outbuild
 ./api/converter_api.egg-info
 ./api/dist
-./api/converter-api/__pycache__/
-./api/converter-api/out/
+./api/__pycache__/
+./api/out/
